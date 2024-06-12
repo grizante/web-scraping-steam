@@ -1,6 +1,5 @@
 package org.example.webscrapingback.controller;
 
-import org.example.webscrapingback.config.ScrapConfig;
 import org.example.webscrapingback.model.Game;
 import org.example.webscrapingback.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/data")
+@RequestMapping("/games")
 public class GameController {
 
     GameService gameService;
@@ -29,4 +28,14 @@ public class GameController {
         return ResponseEntity.ok().body(gameService.getAllData());
     }
 
+    @GetMapping("/{genre}")
+    public ResponseEntity<List<Game>> getDataByGenre(@PathVariable String genre) {
+        return ResponseEntity.ok().body(gameService.getDataByGender(genre));
+    }
+
+    @GetMapping("/{initMonth}/{initYear}/{finalMonth}/{finalYear}")
+    public ResponseEntity<List<Game>> getDataByTimeStamp(@PathVariable Integer initMonth, @PathVariable Integer initYear,
+                                                         @PathVariable Integer finalMonth, @PathVariable Integer finalYear) {
+        return ResponseEntity.ok().body(gameService.getDataByTimeStamp(initMonth, initYear, finalMonth, finalYear));
+    }
 }

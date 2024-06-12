@@ -12,7 +12,7 @@ public class Game {
     @Id
     private String id;
     private String name;
-    private List<String> gender;
+    private List<String> genre;
     private List<Stats> stats;
     
 }

@@ -30,6 +30,14 @@ public class GameService {
         return gameRepository.insert(gameList);
     }
 
+    public List<Game> getDataByGender(String genre) {
+        return gameRepository.findGameByGenre(genre);
+    }
+
+    public List<Game> getDataByTimeStamp(Integer initMonth, Integer initYear, Integer finalMonth, Integer finalYear) {
+
+    }
+
     public void save (Game gameArgs) {
         gameRepository.insert(gameArgs);
     }

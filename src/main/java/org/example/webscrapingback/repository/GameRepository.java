@@ -3,7 +3,12 @@ package org.example.webscrapingback.repository;
 
 import org.example.webscrapingback.model.Game;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface GameRepository extends MongoRepository<Game, String> {
-
-    }
+    List<Game> findGameByGenre(String genre);
+}
