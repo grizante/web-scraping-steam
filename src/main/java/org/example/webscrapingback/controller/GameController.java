@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,7 @@ public class GameController {
 
     @GetMapping("/{genre}")
     public ResponseEntity<List<Game>> getDataByGenre(@PathVariable String genre) {
-        return ResponseEntity.ok().body(gameService.getDataByGender(genre));
+        return ResponseEntity.ok().body(gameService.getDataByGenre(genre));
     }
 
     @GetMapping("/{initMonth}/{initYear}/{finalMonth}/{finalYear}")

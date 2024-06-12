@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GameService {
@@ -22,20 +21,12 @@ public class GameService {
         return gameRepository.findAll();
     }
 
-    public Optional<Game> getDataById(String id) {
-        return gameRepository.findById(id);
-    }
-
-    public List<Game> save (List<Game> gameList) {
-        return gameRepository.insert(gameList);
-    }
-
-    public List<Game> getDataByGender(String genre) {
-        return gameRepository.findGameByGenre(genre);
+    public List<Game> getDataByGenre(String genre) {
+        return gameRepository.findGamesByGenreContainsIgnoreCase(genre);
     }
 
     public List<Game> getDataByTimeStamp(Integer initMonth, Integer initYear, Integer finalMonth, Integer finalYear) {
-
+        return List.of();
     }
 
     public void save (Game gameArgs) {
