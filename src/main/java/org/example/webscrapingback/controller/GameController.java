@@ -1,8 +1,8 @@
 package org.example.webscrapingback.controller;
 
+import lombok.AllArgsConstructor;
 import org.example.webscrapingback.model.Game;
 import org.example.webscrapingback.services.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,14 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/games")
+@AllArgsConstructor
 public class GameController {
 
     GameService gameService;
-
-    @Autowired
-    public GameController(GameService gameService) {
-        this.gameService = gameService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Game>> getAllData() {

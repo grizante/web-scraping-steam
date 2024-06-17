@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: web-scraping-back
+  data:
+    mongodb:
+      authentication-database: admin
+      username: rootuser
+      password: rootpass
+      database: data
+      host: localhost
+      port: 27017

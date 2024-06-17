@@ -74,16 +74,16 @@ public class ScrapService {
         for (StatsApiModel gameStats : games) {
             Stats stats = new Stats();
 
-            stats.setYear(gameStats.getAno());
-            stats.setMonth(gameStats.getMes());
-            stats.setPlayers((int) Double.parseDouble(gameStats.getPlayers()));
+            stats.setYear(gameStats.getANO());
+            stats.setMonth(gameStats.getMES());
+            stats.setPlayers((int) Double.parseDouble(gameStats.getPLAYERS()));
 
             statsList.add(stats);
         }
 
         Game game = new Game();
         game.setName(gameApiModel.getName());
-        game.setGender(gameApiModel.getTagsList());
+        game.setGenre(gameApiModel.getTagsList());
         game.setStats(statsList);
         return game;
     }

@@ -11,24 +11,24 @@ import java.util.Objects;
 
 @Data
 public class StatsApiModel {
-    private final Integer Mes;
-    private final Integer Ano;
-    private final String Players;
+    private final Integer MES;
+    private final Integer ANO;
+    private final String PLAYERS;
 
-    public StatsApiModel(String Data, String Players) {
-        this.Players = Players;
+    public StatsApiModel(String Data, String players) {
+        this.PLAYERS = players;
 
         if (Objects.equals(Data, "Last 30 Days")) {
             Calendar calendar = Calendar.getInstance();
-            Ano = calendar.get(Calendar.YEAR);
-            Mes = calendar.get(Calendar.MONTH) + 1;
+            ANO = calendar.get(Calendar.YEAR);
+            MES = calendar.get(Calendar.MONTH) + 1;
         } else {
             String[] dataSplit = Data.split(" ");
 
             Map<String, Integer> monthMap = getStringIntegerMap();
 
-            Ano = Integer.valueOf(dataSplit[1]);
-            Mes = monthMap.get(dataSplit[0]);
+            ANO = Integer.valueOf(dataSplit[1]);
+            MES = monthMap.get(dataSplit[0]);
         }
     }
 
