@@ -3,13 +3,14 @@ package org.example.webscrapingback.services;
 import lombok.AllArgsConstructor;
 import org.example.webscrapingback.model.Game;
 import org.example.webscrapingback.repository.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,12 +24,8 @@ public class GameService {
         return gameRepository.findAll();
     }
 
-    public List<Game> getDataByGenre(String genre) {
-        return gameRepository.findGamesByGenreContainsIgnoreCase(genre);
-    }
-
-    public List<Game> getDataByTimeStamp(Integer initMonth, Integer initYear, Integer finalMonth, Integer finalYear) {
-        return List.of();
+    public List<Game> getDataByGenre(List<String> genre) {
+        return gameRepository.findGamesByGenreContains(genre);
     }
 
     public void save (Game gameArgs) {
@@ -42,5 +39,31 @@ public class GameService {
         } else {
             gameRepository.insert(gameArgs);
         }
+    }
+
+    public List<String> getAllGenres() {
+        return gameRepository.findAllGenres();
+    }
+
+    public List<Game> getDataByInterval(int startYear, int startMonth, int endYear, int endMonth) {
+        Query query = new Query();
+
+        List<Criteria> criteriaList = new ArrayList<>();
+
+        Criteria startYearCriteria = Criteria.where("stats.year").is(startYear).and("stats.month").gte(startMonth);
+        criteriaList.add(startYearCriteria);
+
+        Criteria endYearCriteria = Criteria.where("stats.year").is(endYear).and("stats.month").lte(endMonth);
+        criteriaList.add(endYearCriteria);
+
+        if (startYear < endYear - 1) {
+            Criteria middleYearsCriteria = Criteria.where("stats.year").gt(startYear).lt(endYear);
+            criteriaList.add(middleYearsCriteria);
+        }
+
+        query.addCriteria(new Criteria().orOperator(criteriaList.toArray(new Criteria[0])));
+
+        return mongoTemplate.find(query, Game.class);
+
     }
 }

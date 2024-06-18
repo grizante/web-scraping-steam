@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface GameRepository extends MongoRepository<Game, String> {
     List<Game> findGamesByName(String title);
-    List<Game> findGamesByGenreContainsIgnoreCase(String genre);
+    List<Game> findGamesByGenreContains(List<String> genre);
+    List<String> findAllGenres();
 }
