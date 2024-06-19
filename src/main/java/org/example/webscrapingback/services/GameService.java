@@ -21,7 +21,7 @@ public class GameService {
     GameRepository gameRepository;
 
     public List<Game> getAllData() {
-        return gameRepository.findAll();
+        return mongoTemplate.findAll(Game.class);
     }
 
     public List<Game> getDataByGenre(List<String> genre) {
@@ -42,7 +42,14 @@ public class GameService {
     }
 
     public List<String> getAllGenres() {
-        return gameRepository.findAllGenres();
+        List<Game> games = mongoTemplate.findAll(Game.class);
+        List<String> genres = new ArrayList<>();
+
+        for (Game game : games) {
+            genres.addAll(game.getGenre());
+        }
+
+        return genres;
     }
 
     public List<Game> getDataByInterval(int startYear, int startMonth, int endYear, int endMonth) {
